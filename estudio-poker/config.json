@@ -1,0 +1,9 @@
+{
+  "initial_bankroll_each": 455,
+  "max_hands": 50,
+  "alpha": 0.9,
+  "risk_limit": null,
+  "variant": "PENDIENTE DE CONFIRMAR",
+  "rules_status": "Propuesta: dos jugadores, sin recompras ni comisiones, final por 50 manos o capital cero. Confirmar con el equipo.",
+  "bankroll_status": "Provisional: cinco fichas de cada valor 1, 5, 10, 25, 50 POR JUGADOR."
+}
