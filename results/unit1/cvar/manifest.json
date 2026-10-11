@@ -1,0 +1,22 @@
+{
+  "python": "3.13.0",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "scipy": "1.18.1",
+  "numpy": "2.5.4",
+  "alpha": 0.9,
+  "solver": "scipy.optimize.linprog(method=highs), primal and dual",
+  "atol": 1e-08,
+  "rtol": 1e-08,
+  "manual_cases": [
+    "manual_colafraccionaria",
+    "probabilidades_desiguales",
+    "empates",
+    "perdidas_negativas",
+    "probabilidad_cero"
+  ],
+  "project_observation_deal_seed": 720001,
+  "project_scenario_seed": "unit1-cvar-real-actions-v1",
+  "project_scenarios": 32,
+  "continuation_model": "stable",
+  "wall_seconds": 0.2326988330023596
+}

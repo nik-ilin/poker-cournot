@@ -1,0 +1,6 @@
+caso,n,cvar_ordenacion,cvar_primal,cvar_dual,eta,validado,status_primal,status_dual
+manual_colafraccionaria,3,60.000000000000014,60.00000000000001,60.000000000000014,20.0,True,0,0
+probabilidades_desiguales,3,12.0,12.0,12.000000000000004,12.0,True,0,0
+empates,4,9.0,9.0,9.000000000000002,9.0,True,0,0
+perdidas_negativas,3,-2.0,-2.0,-2.0,-2.0,True,0,0
+probabilidad_cero,3,8.0,8.0,8.0,8.0,True,0,0

@@ -1,0 +1,5 @@
+action,n_escenarios,beneficio_medio,cvar_ordenacion,cvar_primal,cvar_dual,brecha_primal_dual,validado
+fold,32,-1,1.0,1.0,1.0,0.0,True
+call,32,-2.5,28.250000000000007,28.250000000000007,28.250000000000007,0.0,True
+raise:10,32,0.5,10.0,10.0,9.999999999999998,1.7763568394002505e-15,True
+raise:30,32,-1.375,29.999999999999996,30.0,30.0,0.0,True

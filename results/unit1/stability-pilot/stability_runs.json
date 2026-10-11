@@ -1,0 +1,125 @@
+[
+  {
+    "observation": "obs01",
+    "planner_seed": "planner-v1:760000",
+    "S": 32,
+    "action": "raise:10",
+    "feasible": true,
+    "emergency": false,
+    "feasible_actions": [
+      "fold",
+      "call",
+      "raise:10"
+    ],
+    "train_mean": 0.3125,
+    "train_cvar": 10.0,
+    "eval_mean": 0.34375,
+    "eval_cvar": 10.0,
+    "eval_feasible": true,
+    "eval_mean_standard_error": 0.3934542150781271,
+    "eval_cvar_standard_error_approx": 0.0,
+    "eval_cvar_tail_observations": 25.599999999999994,
+    "eval_mean_regret_vs_feasible_action": 0.0,
+    "seconds": 0.006291833000432234,
+    "estimates": {
+      "fold": {
+        "mean": -1,
+        "cvar": 1.0
+      },
+      "call": {
+        "mean": -0.0625,
+        "cvar": 2.0
+      },
+      "raise:10": {
+        "mean": 0.3125,
+        "cvar": 10.0
+      },
+      "raise:30": {
+        "mean": -1.5625,
+        "cvar": 29.999999999999996
+      }
+    }
+  },
+  {
+    "observation": "obs01",
+    "planner_seed": "planner-v1:760000",
+    "S": 128,
+    "action": "raise:10",
+    "feasible": true,
+    "emergency": false,
+    "feasible_actions": [
+      "fold",
+      "call",
+      "raise:10"
+    ],
+    "train_mean": 0.703125,
+    "train_cvar": 10.0,
+    "eval_mean": 0.34375,
+    "eval_cvar": 10.0,
+    "eval_feasible": true,
+    "eval_mean_standard_error": 0.3934542150781271,
+    "eval_cvar_standard_error_approx": 0.0,
+    "eval_cvar_tail_observations": 25.599999999999994,
+    "eval_mean_regret_vs_feasible_action": 0.0,
+    "seconds": 0.019618000005721115,
+    "estimates": {
+      "fold": {
+        "mean": -1,
+        "cvar": 1.0
+      },
+      "call": {
+        "mean": -0.078125,
+        "cvar": 2.0
+      },
+      "raise:10": {
+        "mean": 0.703125,
+        "cvar": 10.0
+      },
+      "raise:30": {
+        "mean": -0.546875,
+        "cvar": 29.999999999999996
+      }
+    }
+  },
+  {
+    "observation": "obs01",
+    "planner_seed": "planner-v1:760000",
+    "S": 512,
+    "action": "raise:10",
+    "feasible": true,
+    "emergency": false,
+    "feasible_actions": [
+      "fold",
+      "call",
+      "raise:10"
+    ],
+    "train_mean": 0.140625,
+    "train_cvar": 10.0,
+    "eval_mean": 0.34375,
+    "eval_cvar": 10.0,
+    "eval_feasible": true,
+    "eval_mean_standard_error": 0.3934542150781271,
+    "eval_cvar_standard_error_approx": 0.0,
+    "eval_cvar_tail_observations": 25.599999999999994,
+    "eval_mean_regret_vs_feasible_action": 0.0,
+    "seconds": 0.07782654200127581,
+    "estimates": {
+      "fold": {
+        "mean": -1,
+        "cvar": 1.0
+      },
+      "call": {
+        "mean": -0.22265625,
+        "cvar": 2.0
+      },
+      "raise:10": {
+        "mean": 0.140625,
+        "cvar": 10.0
+      },
+      "raise:30": {
+        "mean": -2.0859375,
+        "cvar": 29.999999999999996
+      }
+    }
+  }
+]

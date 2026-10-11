@@ -1,0 +1,35 @@
+[
+  {
+    "id": "obs01",
+    "stratum": "small_blind_unraised",
+    "deal_seed": 710001,
+    "actor": 0,
+    "small": 0,
+    "start": [
+      455,
+      455
+    ],
+    "paid": [
+      1,
+      2
+    ],
+    "raised": false,
+    "history": [],
+    "own_cards": [
+      [
+        3,
+        1
+      ],
+      [
+        11,
+        0
+      ]
+    ],
+    "legal_actions": [
+      "fold",
+      "call",
+      "raise:10",
+      "raise:30"
+    ]
+  }
+]

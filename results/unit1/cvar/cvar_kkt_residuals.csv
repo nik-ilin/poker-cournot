@@ -1,0 +1,6 @@
+caso,stationarity_eta,stationarity_u,primal_inequality,primal_u_nonnegative,dual_z_nonnegative,dual_upper_bound,dual_beta_nonnegative,complementarity_z,complementarity_beta,primal_dual_gap,ordering_primal,ordering_dual,validado
+manual_colafraccionaria,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,7.105427357601002e-15,7.105427357601002e-15,0.0,True
+probabilidades_desiguales,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,3.552713678800501e-15,0.0,3.552713678800501e-15,True
+empates,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.7763568394002505e-15,0.0,1.7763568394002505e-15,True
+perdidas_negativas,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True
+probabilidad_cero,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True

@@ -1,0 +1,19 @@
+{
+  "python": "3.13.0",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "scipy": "1.18.1",
+  "numpy": "2.5.4",
+  "alpha": 0.9,
+  "deal_seed": 730001,
+  "scenario_seed": "unit1-sensitivity-fixed-scenarios-v1",
+  "scenario_count": 128,
+  "continuation_model": "stable",
+  "wall_seconds": 0.23286100000404986,
+  "risk_thresholds": [
+    1.0,
+    10.0,
+    17.3125,
+    30.0
+  ],
+  "epsilon_before_after": 1e-05
+}

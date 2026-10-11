@@ -23,14 +23,24 @@ solo cartas propias. Capital y botes se conservan en cada transición.»
 
 B: «Para cada acción simulamos cartas y la respuesta de una regla rival. Maximizar
 beneficio con CVaR local es distinto de minimizar riesgo con un beneficio mínimo.
-La cola incluye exactamente la masa necesaria. Enumeramos acciones, pero los
-escenarios son una aproximación. Si ninguna cumple, lo registramos y continuamos
-legalmente con una emergencia.»
+La cola incluye exactamente la masa necesaria. Para pérdidas fijas, el CVaR
+también es un LP: el ejemplo 100, 20 y −10 asigna media unidad de peso dual a cada
+una de las dos pérdidas mayores y da 60 en primal y dual. KKT certifica ese cálculo;
+no convierte la enumeración discreta de póker en un problema convexo. Los escenarios
+son una aproximación. Si ninguna acción cumple, registramos la inviabilidad y
+continuamos legalmente con una emergencia.»
 
 C: «Comparamos 200 sesiones por combinación con los mismos mazos exógenos. Las
 semillas de evaluación son nuevas. Mostramos beneficio y riesgo conjuntamente,
 con incertidumbre. Un límite de mano no limita automáticamente la pérdida de
 sesión. La referencia de exposición y su equilibrio son un estudio separado.»
+
+Demostración adicional del bloque B, si el tiempo lo permite: mostrar la curva
+escalonada `V(R)` construida con las mismas 128 continuaciones y las frecuencias de
+cambio al crecer S. Nombrar S=512 como referencia de mayor tamaño; no llamarlo
+verdad exacta. Mantener los tres turnos en dos minutos cada uno (vídeo total de
+seis minutos) y desplazar detalle del modelo original, no recortar la interpretación
+de resultados.
 
 Añadir al bloque C solo cifras verificadas de RESULTADOS.md. No prometer que una
 política gane ni que la optimización supere siempre a la referencia fija.

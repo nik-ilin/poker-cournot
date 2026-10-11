@@ -1,6 +1,8 @@
 # Cómo estudiar las matemáticas
 
 Leer primero [la formulación previa](FORMULACION.md) y [las reglas](REGLAS.md).
+Para la conexión formal con Unidad 1, dualidad del CVaR y resultados adicionales,
+consultar [docs/UNIDAD1.md](UNIDAD1.md).
 
 ## Contabilidad: tres cantidades distintas
 

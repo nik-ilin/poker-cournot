@@ -1,0 +1,360 @@
+{
+  "python": "3.13.0",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "scipy": "1.18.1",
+  "numpy": "2.5.4",
+  "alpha": 0.9,
+  "risk_limit_chips": 10.0,
+  "rival_continuation": "stable",
+  "raises": [
+    10,
+    30
+  ],
+  "sizes": [
+    32,
+    128,
+    512
+  ],
+  "planner_seeds": [
+    "planner-v1:760000",
+    "planner-v1:760001",
+    "planner-v1:760002",
+    "planner-v1:760003",
+    "planner-v1:760004"
+  ],
+  "planner_sampling": "random.Random(seed).sample(unknown_own_deck, 7), one stream per observation and planner seed",
+  "evaluation_seed_prefix": "independent-eval-v1:<deal_seed>",
+  "observations": [
+    {
+      "id": "obs01",
+      "stratum": "small_blind_unraised",
+      "deal_seed": 710001,
+      "actor": 0,
+      "small": 0,
+      "start": [
+        455,
+        455
+      ],
+      "paid": [
+        1,
+        2
+      ],
+      "raised": false,
+      "history": [],
+      "own_cards": [
+        [
+          3,
+          1
+        ],
+        [
+          11,
+          0
+        ]
+      ],
+      "legal_actions": [
+        "fold",
+        "call",
+        "raise:10",
+        "raise:30"
+      ]
+    },
+    {
+      "id": "obs02",
+      "stratum": "big_blind_unraised",
+      "deal_seed": 710002,
+      "actor": 1,
+      "small": 0,
+      "start": [
+        455,
+        455
+      ],
+      "paid": [
+        2,
+        2
+      ],
+      "raised": false,
+      "history": [
+        [
+          0,
+          "call",
+          [
+            2,
+            2
+          ]
+        ]
+      ],
+      "own_cards": [
+        [
+          7,
+          0
+        ],
+        [
+          9,
+          1
+        ]
+      ],
+      "legal_actions": [
+        "call",
+        "raise:10",
+        "raise:30"
+      ]
+    },
+    {
+      "id": "obs03",
+      "stratum": "big_blind_facing_raise",
+      "deal_seed": 710003,
+      "actor": 1,
+      "small": 0,
+      "start": [
+        455,
+        455
+      ],
+      "paid": [
+        10,
+        2
+      ],
+      "raised": true,
+      "history": [
+        [
+          0,
+          "raise:10",
+          [
+            10,
+            2
+          ]
+        ]
+      ],
+      "own_cards": [
+        [
+          9,
+          1
+        ],
+        [
+          6,
+          1
+        ]
+      ],
+      "legal_actions": [
+        "fold",
+        "call"
+      ]
+    },
+    {
+      "id": "obs04",
+      "stratum": "small_blind_facing_raise",
+      "deal_seed": 710004,
+      "actor": 1,
+      "small": 1,
+      "start": [
+        455,
+        455
+      ],
+      "paid": [
+        10,
+        2
+      ],
+      "raised": true,
+      "history": [
+        [
+          1,
+          "call",
+          [
+            2,
+            2
+          ]
+        ],
+        [
+          0,
+          "raise:10",
+          [
+            10,
+            2
+          ]
+        ]
+      ],
+      "own_cards": [
+        [
+          3,
+          2
+        ],
+        [
+          2,
+          3
+        ]
+      ],
+      "legal_actions": [
+        "fold",
+        "call"
+      ]
+    },
+    {
+      "id": "obs05",
+      "stratum": "small_blind_unraised",
+      "deal_seed": 710005,
+      "actor": 0,
+      "small": 0,
+      "start": [
+        120,
+        120
+      ],
+      "paid": [
+        1,
+        2
+      ],
+      "raised": false,
+      "history": [],
+      "own_cards": [
+        [
+          6,
+          3
+        ],
+        [
+          13,
+          2
+        ]
+      ],
+      "legal_actions": [
+        "fold",
+        "call",
+        "raise:10",
+        "raise:30"
+      ]
+    },
+    {
+      "id": "obs06",
+      "stratum": "big_blind_unraised",
+      "deal_seed": 710006,
+      "actor": 1,
+      "small": 0,
+      "start": [
+        60,
+        60
+      ],
+      "paid": [
+        2,
+        2
+      ],
+      "raised": false,
+      "history": [
+        [
+          0,
+          "call",
+          [
+            2,
+            2
+          ]
+        ]
+      ],
+      "own_cards": [
+        [
+          8,
+          0
+        ],
+        [
+          6,
+          2
+        ]
+      ],
+      "legal_actions": [
+        "call",
+        "raise:10",
+        "raise:30"
+      ]
+    },
+    {
+      "id": "obs07",
+      "stratum": "big_blind_facing_raise",
+      "deal_seed": 710007,
+      "actor": 0,
+      "small": 1,
+      "start": [
+        120,
+        120
+      ],
+      "paid": [
+        2,
+        10
+      ],
+      "raised": true,
+      "history": [
+        [
+          1,
+          "raise:10",
+          [
+            2,
+            10
+          ]
+        ]
+      ],
+      "own_cards": [
+        [
+          4,
+          3
+        ],
+        [
+          4,
+          2
+        ]
+      ],
+      "legal_actions": [
+        "fold",
+        "call"
+      ]
+    },
+    {
+      "id": "obs08",
+      "stratum": "small_blind_facing_raise",
+      "deal_seed": 710008,
+      "actor": 1,
+      "small": 1,
+      "start": [
+        60,
+        60
+      ],
+      "paid": [
+        10,
+        2
+      ],
+      "raised": true,
+      "history": [
+        [
+          1,
+          "call",
+          [
+            2,
+            2
+          ]
+        ],
+        [
+          0,
+          "raise:10",
+          [
+            10,
+            2
+          ]
+        ]
+      ],
+      "own_cards": [
+        [
+          4,
+          1
+        ],
+        [
+          8,
+          1
+        ]
+      ],
+      "legal_actions": [
+        "fold",
+        "call"
+      ]
+    }
+  ],
+  "independent_evaluation_scenarios_per_observation": 2048,
+  "independent_evaluation_tail_mass_scenarios": 204.79999999999995,
+  "total_wall_seconds": 7.24485887499759,
+  "common_random_scenarios_across_actions": true,
+  "nested_planning_samples_per_seed": true,
+  "reference_interpretation": "S=512 solo es referencia de mayor tamaño, no valor verdadero",
+  "rule": "No se modifican parámetros según los resultados de evaluación."
+}

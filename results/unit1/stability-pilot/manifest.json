@@ -1,0 +1,63 @@
+{
+  "python": "3.13.0",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "scipy": "1.18.1",
+  "numpy": "2.5.4",
+  "alpha": 0.9,
+  "risk_limit_chips": 10.0,
+  "rival_continuation": "stable",
+  "raises": [
+    10,
+    30
+  ],
+  "sizes": [
+    32,
+    128,
+    512
+  ],
+  "planner_seeds": [
+    "planner-v1:760000"
+  ],
+  "observations": [
+    {
+      "id": "obs01",
+      "stratum": "small_blind_unraised",
+      "deal_seed": 710001,
+      "actor": 0,
+      "small": 0,
+      "start": [
+        455,
+        455
+      ],
+      "paid": [
+        1,
+        2
+      ],
+      "raised": false,
+      "history": [],
+      "own_cards": [
+        [
+          3,
+          1
+        ],
+        [
+          11,
+          0
+        ]
+      ],
+      "legal_actions": [
+        "fold",
+        "call",
+        "raise:10",
+        "raise:30"
+      ]
+    }
+  ],
+  "independent_evaluation_scenarios_per_observation": 256,
+  "independent_evaluation_tail_mass_scenarios": 25.599999999999994,
+  "total_wall_seconds": 0.3002882920045522,
+  "common_random_scenarios_across_actions": true,
+  "nested_planning_samples_per_seed": true,
+  "reference_interpretation": "S=512 solo es referencia de mayor tamaño, no valor verdadero",
+  "rule": "No se modifican parámetros según los resultados de evaluación."
+}

@@ -1,0 +1,4 @@
+observation,planner_seed,S,action,feasible,emergency,feasible_actions,train_mean,train_cvar,eval_mean,eval_cvar,eval_feasible,eval_mean_standard_error,eval_cvar_standard_error_approx,eval_cvar_tail_observations,eval_mean_regret_vs_feasible_action,seconds
+obs01,planner-v1:760000,32,raise:10,True,False,"['fold', 'call', 'raise:10']",0.3125,10.0,0.34375,10.0,True,0.3934542150781271,0.0,25.599999999999994,0.0,0.006291833000432234
+obs01,planner-v1:760000,128,raise:10,True,False,"['fold', 'call', 'raise:10']",0.703125,10.0,0.34375,10.0,True,0.3934542150781271,0.0,25.599999999999994,0.0,0.019618000005721115
+obs01,planner-v1:760000,512,raise:10,True,False,"['fold', 'call', 'raise:10']",0.140625,10.0,0.34375,10.0,True,0.3934542150781271,0.0,25.599999999999994,0.0,0.07782654200127581

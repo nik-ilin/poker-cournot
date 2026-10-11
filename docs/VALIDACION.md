@@ -33,8 +33,38 @@ del producto de póker probado; permanecen disponibles como material separado.
 
 ## Ejecución final
 
-36 pruebas superadas, Ruff sin errores, compilación correcta y dependencias
-consistentes. Evidencia breve en [validation.txt](../results/validation.txt).
+En la validación previa a esta ampliación: 36 pruebas superadas, Ruff sin errores,
+compilación correcta y dependencias consistentes. Evidencia de esa tanda en
+[validation.txt](../results/validation.txt).
 Auditoría del estudio: 150000 manos, 3000 sesiones, 15 celdas, 600 pares
 beneficio/R=30 y 30 sesiones reproducidas. Figuras PNG inspeccionadas visualmente;
 no se atribuye esa revisión automática a los compañeros.
+
+## Extensión Unidad 1
+
+`tests/test_unit1.py` añade equivalencia entre ordenación/primal/dual, ejemplo
+manual con cola fraccionaria, KKT, probabilidades desiguales y nulas, empates,
+pérdidas negativas, distribución degenerada, entradas inválidas, pérdidas de
+acciones del motor, escenarios congelados y anidados, monotonía de `V(R)` en el
+problema factible y separación de inviabilidad/emergencia. La tanda de estabilidad
+completa se ejecuta como experimento reproducible, no se usa como prueba unitaria.
+
+Los LP deben terminar en estado óptimo de HiGHS y satisfacer residuos KKT y brecha
+primal–dual dentro de `1e-8 + 1e-8*escala`. El ejemplo `(100,20,-10)`, pesos
+`(.05,.15,.80)`, `alpha=.90` devuelve `eta=20`, `u=(80,0,0)`, `z=(.5,.5,0)` y
+valor 60 por ordenación, primal y dual. Se prueban además cinco distribuciones
+manuales y cuatro acciones de una observación del simulador. Esto certifica el
+cálculo del CVaR en las distribuciones comprobadas, no el modelo del rival ni el
+óptimo del juego de póker.
+
+La sensibilidad congela 128 escenarios y comprueba los umbrales inmediatamente
+antes, en y después de cada CVaR de acción. El estudio S=32/128/512 compara muestras
+prefijadas anidadas y evalúa las acciones en escenarios independientes; S=512 es
+referencia de mayor tamaño, no valor exacto. Ver tablas y semillas en
+[`results/unit1/`](../results/unit1/).
+
+En la validación final de esta ampliación: **59 pruebas superadas** en la suite
+completa (`python -m pytest -q`), incluidos AppTest de Streamlit; `compileall`,
+`pip check` y `ruff check .` pasaron. Para ello se ordenaron imports y se
+reemplazaron dos lambdas locales de coordenadas por funciones equivalentes en
+`estudio-cournot/estudio.py`; no se alteraron fórmulas ni lógica del estudio.

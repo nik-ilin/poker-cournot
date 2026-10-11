@@ -44,6 +44,46 @@ def select(candidates, kind, limit, minimum, tol=1e-9):
     return chosen, bool(feasible)
 
 
+def evaluate_actions(obs, cfg, scenarios, model="stable"):
+    """Evalúa todas las acciones legales sobre exactamente los escenarios dados.
+
+    Expone también las pérdidas por escenario para análisis académicos; la política
+    operativa sigue usando CVaR por ordenación y el mismo modelo de continuación.
+    """
+    if model not in ("stable", "loose", "tight"):
+        raise ValueError("Modelo rival desconocido")
+    scenarios = tuple(tuple(cards) for cards in scenarios)
+    if not scenarios:
+        raise ValueError("Se requiere al menos un escenario")
+    i = obs.public.actor
+    candidates = []
+    for action in legal(obs.public, obs.raises):
+        profits = []
+        for cards in scenarios:
+            if len(cards) != 7 or len(set(obs.own + cards)) != 9:
+                raise ValueError("Escenario debe contener siete cartas distintas")
+            holes = [None, None]
+            holes[i] = obs.own
+            holes[1 - i] = tuple(cards[:2])
+            board = cards[2:]
+            s = step(obs.public, action, obs.raises)
+            while not s.terminal:
+                follow = Observation(s, holes[s.actor], obs.raises)
+                s = step(s, fixed(follow, model), obs.raises)
+            profits.append(settle(s, holes, board)[i] - s.start[i])
+        losses = [-x for x in profits]
+        candidates.append(
+            {
+                "action": action,
+                "mean": mean(profits),
+                "incremental_mean": mean(profits) + obs.public.paid[i],
+                "cvar": cvar(losses, cfg.alpha),
+                "losses": losses,
+            }
+        )
+    return candidates
+
+
 def decide(obs, kind, cfg, seed, limit=10.0, minimum=5.0, model="stable"):
     if not math.isfinite(limit) or not math.isfinite(minimum):
         raise ValueError("Límites finitos requeridos")
@@ -61,34 +101,17 @@ def decide(obs, kind, cfg, seed, limit=10.0, minimum=5.0, model="stable"):
     rng = random.Random(seed)
     unknown = [c for c in DECK if c not in obs.own]
     scenarios = [rng.sample(unknown, 7) for _ in range(cfg.scenarios)]
-    i = obs.public.actor
-    candidates = []
-    for action in legal(obs.public, obs.raises):
-        profits = []
-        for cards in scenarios:
-            holes = [None, None]
-            holes[i] = obs.own
-            holes[1 - i] = tuple(cards[:2])
-            board = cards[2:]
-            s = step(obs.public, action, obs.raises)
-            while not s.terminal:
-                follow = Observation(s, holes[s.actor], obs.raises)
-                s = step(s, fixed(follow, model), obs.raises)
-            profits.append(settle(s, holes, board)[i] - s.start[i])
-        candidates.append(
-            {
-                "action": action,
-                "mean": mean(profits),
-                "incremental_mean": mean(profits) + obs.public.paid[i],
-                "cvar": cvar([-x for x in profits], cfg.alpha),
-            }
-        )
+    candidates = evaluate_actions(obs, cfg, scenarios, model)
     chosen, feasible = select(candidates, kind, limit, minimum)
+    diagnostics = [
+        {k: v for k, v in c.items() if k != "losses"} for c in candidates
+    ]
+    selected = {k: v for k, v in chosen.items() if k != "losses"}
     return chosen["action"], {
         "status": "feasible" if feasible else "infeasible_emergency",
         "reason": None if feasible else "no_action_satisfies_sample_constraint",
-        "selected": chosen,
-        "candidates": candidates,
+        "selected": selected,
+        "candidates": diagnostics,
         "seconds": time.perf_counter() - begin,
         "scenario_seed": seed,
         "scenarios": cfg.scenarios,

@@ -1,0 +1,4 @@
+S,observation_seed_pairs,independent_mean_average,independent_mean_sd_across_fixtures,average_mean_mc_se,independent_cvar_average,independent_cvar_sd_across_fixtures,average_cvar_mc_se_approx,empirical_risk_limit_violations,mean_regret_vs_feasible_sample_benchmark
+32,1,0.34375,0,0.3934542150781271,10.0,0,0.0,0,0.0
+128,1,0.34375,0,0.3934542150781271,10.0,0,0.0,0,0.0
+512,1,0.34375,0,0.3934542150781271,10.0,0,0.0,0,0.0

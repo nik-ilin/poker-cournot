@@ -112,3 +112,57 @@ Tablas completas: [resumen](../results/study/summary.csv),
 [comparaciones emparejadas](../results/study/paired.csv),
 [diagnósticos](../results/study/diagnostics.csv),
 [manifiesto](../results/study/manifest.json).
+
+## Ampliación Unidad 1: LP de CVaR y sensibilidad — 11 de octubre de 2026
+
+Se añadieron experimentos separados bajo [`results/unit1/`](../results/unit1/);
+los resultados históricos de 3000 sesiones no se han modificado.
+
+En el ejemplo manual obligatorio, ordenación, primal y dual dieron 60; HiGHS
+devolvió `eta=20`, `u=(80,0,0)`, `z=(0.5,0.5,0)`. Se resolvieron además cinco
+distribuciones de prueba (incluyendo empate, masa cero y pérdidas negativas) y
+las cuatro acciones legales de una observación real del motor. Los ocho problemas
+manuales/del motor finalizaron ambos LP con status 0 y quedaron validados. El
+mayor residuo absoluto reportado fue `7.11e-15`, por redondeo flotante; tolerancias
+configuradas `atol=1e-8`, `rtol=1e-8`. Esto valida los cálculos de las distribuciones
+concretas, no las creencias del rival ni la optimalidad global de póker.
+
+En la observación ilustrativa de la ciega pequeña (semilla 730001), con una única
+muestra fija de 128 escenarios, los umbrales CVaR de fold, call, raise:10 y raise:30
+fueron respectivamente 1, 17.3125, 10 y 30 fichas. Por tanto, `V(R)` vale −1 para
+`1<=R<10`; en `R=10` salta a 0.625 y permanece ahí incluso cuando call se vuelve
+factible en 17.3125 y raise:30 en 30. Para `R<1` no hay acción factible: se informa
+la emergencia por separado. Los puntos antes/en/después de cada umbral confirman
+que el valor factible no disminuye. Es un ejemplo seleccionado por semilla
+predefinida, no una observación representativa del juego.
+
+El estudio de estabilidad usó 8 estados que cubren posiciones, subidas y capitales,
+5 semillas de planificación y muestras anidadas, para 40 pares estado-semilla y
+120 decisiones. Cada elección se volvió a evaluar en 2048 escenarios comunes e
+independientes de planificación (204.8 observaciones equivalentes en la cola al
+90%).
+
+| S | Cambio de acción frente a S=512 | Cambios en conjunto factible | Emergencia | Tiempo medio/decisión | Beneficio medio en evaluación fija | CVaR medio en evaluación fija | Regret medio en muestra factible |
+|---:|---:|---:|---:|---:|---:|---:|---:|
+| 32 | 35.0% | 0/40 | 0% | 5.9 ms | −0.409 | 6.175 | 0.223 |
+| 128 | 12.5% | 0/40 | 0% | 18.1 ms | −0.243 | 7.600 | 0.057 |
+| 512 | 0% (referencia) | 0/40 | 0% | 72.9 ms | −0.203 | 8.600 | 0.017 |
+
+En esta batería todos los picks resultaron factibles en la muestra independiente.
+Los cambios de acción bajaron al aumentar S, y el coste creció aproximadamente
+con el tamaño muestral. El error estándar de Monte Carlo medio del beneficio por
+decisión fue 0.106, 0.130 y 0.145 fichas para S=32, 128 y 512; la aproximación de
+error estándar de CVaR fue cero en estas colas discretas de pagos constantes.
+Las métricas de evaluación son descriptivas de estos 8
+estados prefijados y las 5 semillas; las tres filas comparten repartos de
+evaluación, así que no son 120 observaciones poblacionales independientes. S=512
+es solo la referencia de mayor tamaño. En este motor, algunos aumentos tienen
+CVaR estimado constante por la estructura de pagos; ello explica que en esta
+muestra no cambiara el conjunto factible. No demuestra que el tamaño no afecte a
+la factibilidad en otros estados o modelos de rival.
+
+Archivos para revisión: `cvar_examples.csv`, `cvar_kkt_residuals.csv`,
+`cvar_project_actions.csv`, `cvar_dual_tail.png`; `sensitivity.csv` y
+`sensitivity_step.png`; `observations.json`, `stability_summary.csv`,
+`stability_estimates.csv`, `stability_external_summary.csv` y `stability.png`.
+Los manifiestos registran entorno, parámetros, semillas, cantidades y tiempos.

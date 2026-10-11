@@ -1,0 +1,13 @@
+R,feasible,acciones_factibles,accion,objetivo_beneficio_medio,cvar_accion,holgura,alternativa_emergencia
+0.99999,False,[],,,,,fold
+1.0,True,['fold'],fold,-1,1.0,0.0,
+1.00001,True,['fold'],fold,-1,1.0,1.0000000000065512e-05,
+9.99999,True,['fold'],fold,-1,1.0,8.99999,
+10.0,True,"['fold', 'raise:10']",raise:10,0.625,10.0,0.0,
+10.00001,True,"['fold', 'raise:10']",raise:10,0.625,10.0,9.999999999621423e-06,
+17.31249,True,"['fold', 'raise:10']",raise:10,0.625,10.0,7.31249,
+17.3125,True,"['fold', 'call', 'raise:10']",raise:10,0.625,10.0,7.3125,
+17.31251,True,"['fold', 'call', 'raise:10']",raise:10,0.625,10.0,7.31251,
+29.99999,True,"['fold', 'call', 'raise:10']",raise:10,0.625,10.0,19.99999,
+30.0,True,"['fold', 'call', 'raise:10', 'raise:30']",raise:10,0.625,10.0,20.0,
+30.00001,True,"['fold', 'call', 'raise:10', 'raise:30']",raise:10,0.625,10.0,20.00001,

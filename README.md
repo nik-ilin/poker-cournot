@@ -56,8 +56,21 @@ python -m poker.cli session --strategy risk --limit 0 --out results/demo-emergen
 3. [Módulos, exportación y migración](docs/ARQUITECTURA.md).
 4. [Diseño experimental e incertidumbre](docs/EXPERIMENTOS.md).
 5. [Resultados ejecutados y límites](docs/RESULTADOS.md).
-6. [Pruebas y alcance](docs/VALIDACION.md), [auditoría y atribución](docs/INTEGRACION.md).
-7. [Reparto técnico y guion de seis minutos](docs/PRESENTACION.md).
+6. [Conexión con Unidad 1: CVaR primal-dual, KKT y sensibilidad](docs/UNIDAD1.md).
+7. [Pruebas y alcance](docs/VALIDACION.md), [auditoría y atribución](docs/INTEGRACION.md).
+8. [Reparto técnico y guion de seis minutos](docs/PRESENTACION.md).
+
+## Experimentos de Unidad 1
+
+```bash
+python -m poker.academic cvar --out results/unit1/cvar
+python -m poker.academic sensitivity --out results/unit1/sensitivity --scenarios 128
+python -m poker.academic stability --out results/unit1/stability --observations 8 --planner-seeds 5 --evaluation-scenarios 2048
+```
+
+Los LP académicos verifican el CVaR de distribuciones fijadas; no sustituyen la
+selección discreta de acciones. Los nuevos artefactos están separados de las
+sesiones originales en `results/study/`.
 
 [Resultados compactos](results/study/) · [Pruebas](tests/) ·
 [Evaluador previo](estudio-poker/) · [Cournot económico anterior](estudio-cournot/).

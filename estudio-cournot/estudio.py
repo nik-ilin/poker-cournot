@@ -11,7 +11,6 @@ import json
 import math
 from pathlib import Path
 
-
 TOL = 1e-8
 
 
@@ -235,8 +234,11 @@ def chart(rows, metric, title):
         ymin, ymax = ymin - 1, ymax + 1
     pad = (ymax - ymin) * .05
     ymin, ymax = ymin - pad, ymax + pad
-    sx = lambda x: 85 + (x - xmin) / (xmax - xmin) * 610
-    sy = lambda y: 285 - (y - ymin) / (ymax - ymin) * 250
+    def sx(x):
+        return 85 + (x - xmin) / (xmax - xmin) * 610
+
+    def sy(y):
+        return 285 - (y - ymin) / (ymax - ymin) * 250
     parts = [f'<h2>{html.escape(title)}</h2>',
              '<svg viewBox="0 0 760 340" role="img" aria-label="' + html.escape(title) + '">']
     for k in range(6):
