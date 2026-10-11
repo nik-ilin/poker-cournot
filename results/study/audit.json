@@ -1,0 +1,22 @@
+{
+  "hands_checked": 150000,
+  "sessions_checked": 3000,
+  "cells": 15,
+  "paired_profit_r30_checked": 600,
+  "replayed_sessions": 30,
+  "all_checks_passed": true,
+  "source_sha256": {
+    "poker/__init__.py": "4ea06ae574d1b93caf340fa5994f632fb690621c471d44d4480bbcebf0de77c2",
+    "poker/audit.py": "79818131ec45bf440503c379dc50ccc9de9154eccfe6637d8c9bfa2ef548ceff",
+    "poker/cards.py": "3cd51f88d44724d3c185cee3a649717e2f5322b86271479463431bb73246ee82",
+    "poker/cli.py": "720f627e70ae91ec02bc6f5083d0183fa4ac48e12805172e39da60200bddb16a",
+    "poker/evaluation.py": "8283426cbaff17c318af8215093d2ca2a85d48ded16e07123657b53ee6496716",
+    "poker/experiments.py": "6ca7331e652fc5d0485298b1b764a66e5a6aa9f6e34385737b81c1529b2d1348",
+    "poker/exposure.py": "21cb07fe0008ff67d2e936343e57b3a63887e998ccbff9dd7ba36fc369b2ea94",
+    "poker/figures.py": "b6c7b80918b11bad786e6ee8157318b69036a6e836c7d0cfcdacd74dd1ab1488",
+    "poker/game.py": "c05bfd74dd3b6637cba85e0453a75fc20dfc4f56523cb9a073bc6b5922ce3ec0",
+    "poker/policy.py": "0783e32b1246482321595d3778b569608b29929f0dea8f4af1ea1dc3822e60d3",
+    "poker/risk.py": "5eb87fadb0b9999da613432f4d4b2d903f3a46f87280b20ba9a5dfd3c67dfd5b",
+    "poker/simulation.py": "faf5b4aa138e7ded098c5024030a398a88e849b2044daa22d7ab1d1ada8d49a7"
+  }
+}

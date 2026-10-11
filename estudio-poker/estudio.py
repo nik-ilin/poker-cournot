@@ -40,13 +40,15 @@ def read_config(path):
 
 def write_csv(path, rows, fields):
     with path.open('w', newline='', encoding='utf-8') as handle:
-        writer = csv.DictWriter(handle, fieldnames=fields)
+        writer = csv.DictWriter(handle, fieldnames=fields, lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
 
 
 def cvar(losses, alpha):
     """Media de la peor masa (1-alpha), fraccionando la observación frontera."""
+    if not losses or not 0 <= alpha < 1 or any(not math.isfinite(x) for x in losses):
+        raise ValueError("Pérdidas finitas no vacías y alpha válido requeridos")
     mass = len(losses) * (1 - alpha)
     remaining, total = mass, 0.0
     for loss in sorted(losses, reverse=True):

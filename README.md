@@ -1,32 +1,68 @@
-# Poker–Cournot · Proyecto I de Optimización
+# Póker finito: decisiones, beneficio y CVaR
 
-## Estudio actual: póker
+Proyecto universitario de Optimización. Integra el historial de `modelo` y `beep`
+con el evaluador de sesiones de `main`. **Variante finita de una ronda preflop**,
+no un solucionador general ni una implementación completa de no-limit Hold’em.
 
-- [Guía completa y matemáticas](estudio-poker/README.md)
-- [Evaluador Python](estudio-poker/estudio.py)
-- [Configuración](estudio-poker/config.json)
-- [Plantilla de resultados por mano](estudio-poker/plantilla_manos.csv)
+El optimizador controla las acciones del simulador: maximiza beneficio esperado
+bajo CVaR local, o minimiza CVaR con beneficio mínimo. Enumera acciones legales
+sobre escenarios de continuación. El riesgo de sesión se evalúa aparte.
 
-Configuración provisional: 455 unidades por jugador, hasta 50 manos y final anticipado por capital cero. La variante y las reglas completas quedan pendientes de confirmación con el equipo. El evaluador recibe registros de un simulador externo; no implementa el juego ni optimiza las políticas.
+## Instalar y ejecutar
 
-Python 3.10 o posterior, sin dependencias externas. Desde la raíz del proyecto:
-
-```bash
-python3 estudio-poker/estudio.py --config estudio-poker/config.json --example --out resultados_formato_01
-```
-
-El ejemplo genera trayectorias aritméticas ficticias, no partidas de póker. Para usar registros del equipo:
+Usar Python 3.13 para el entorno fijado en `requirements-lock.txt`; comprobado en macOS ARM64.
+Desde la raíz real del repositorio (el nombre local puede diferir en mayúsculas
+respecto de «Proyecto 1» y la tilde puede estar descompuesta):
 
 ```bash
-python3 estudio-poker/estudio.py --config estudio-poker/config.json --hands manos_equipo.csv --out resultados_equipo_01
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements-lock.txt
+python -m pytest -q
+python -m poker.cli session --strategy risk --limit 10 --seed 10000 --out run
+python -m streamlit run app.py
 ```
 
-## Alternativa anterior: Cournot
+La interfaz abre en la dirección local mostrada por Streamlit. Permite cambiar
+estrategia/rival, parámetros y semilla; recorrer manos; alternar vista privada y
+observador; consultar estimaciones reales y exportar. Pulsar «Ejecutar sesión»
+tras modificar controles. Los resultados agregados publicados aparecen al pie.
 
-[Guía y código](estudio-cournot/README.md): se conservan las formulaciones de beneficio, CVaR y sensibilidad a la producción rival. No procesan registros de póker.
+Para reproducir tablas, figuras y registros del estudio en una carpeta nueva:
 
-## Estado y procedencia
+```bash
+python -m poker.cli experiment --sessions 200 --scenarios 32 --seed 10000 --out results/reproduction
+python -m poker.audit results/reproduction
+python optimizacion_cournot_poker.py
+```
 
-Archivos copiados desde el vault universitario el 10 de octubre de 2026. Código y documentación preparados con asistencia de Codex; no ejecutados ni probados en esta entrega. No hay resultados reales del equipo incluidos. Los ejemplos son didácticos y no acreditan rendimiento de ninguna estrategia.
+Abrir `results/reproduction/report.html` para la tabla y trayectoria; consultar
+los CSV y SVG para incertidumbre, comparaciones y mejores respuestas. Los tiempos
+varían con el equipo. Los registros completos se generan localmente y se excluyen
+de Git para evitar archivos masivos. No sobrescribir una carpeta de ejecución.
 
-La licencia existente del repositorio se conserva en [LICENSE](LICENSE).
+Ejemplos de los dos objetivos y de emergencia:
+
+```bash
+python -m poker.cli session --strategy fixed --opponent minrisk --minimum 5 --out results/demo-j2
+python -m poker.cli session --strategy risk --limit 0 --out results/demo-emergency
+```
+
+## Ruta de estudio
+
+1. [Reglas, información y procedencia](docs/REGLAS.md).
+2. [Formulación escrita antes del optimizador](docs/FORMULACION.md) y
+   [explicación matemática con ejemplos](docs/MATEMATICAS.md).
+3. [Módulos, exportación y migración](docs/ARQUITECTURA.md).
+4. [Diseño experimental e incertidumbre](docs/EXPERIMENTOS.md).
+5. [Resultados ejecutados y límites](docs/RESULTADOS.md).
+6. [Pruebas y alcance](docs/VALIDACION.md), [auditoría y atribución](docs/INTEGRACION.md).
+7. [Reparto técnico y guion de seis minutos](docs/PRESENTACION.md).
+
+[Resultados compactos](results/study/) · [Pruebas](tests/) ·
+[Evaluador previo](estudio-poker/) · [Cournot económico anterior](estudio-cournot/).
+Los documentos de esos dos directorios describen entregas históricas; el estado
+actual del producto integrado está aquí. Se conserva [la licencia](LICENSE).
+
+No se demuestra optimalidad en el juego completo, garantía de riesgo de sesión,
+rentabilidad contra rivales humanos ni validación humana de los resultados.

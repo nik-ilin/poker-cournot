@@ -1,0 +1,42 @@
+{
+  "demo-j2-32": {
+    "config": {
+      "capital": 455,
+      "hands": 50,
+      "alpha": 0.9,
+      "scenarios": 32,
+      "raises": [
+        10,
+        30
+      ]
+    },
+    "seed": 10000,
+    "strategy": "fixed:R=10:m=5.0:v1",
+    "opponent": "minrisk",
+    "hands": 50,
+    "final_balance_1": 546.0,
+    "optimized_decisions": 50,
+    "emergencies": 46,
+    "mean_seconds": 0.006332737479970092
+  },
+  "demo-emergency-32": {
+    "config": {
+      "capital": 455,
+      "hands": 50,
+      "alpha": 0.9,
+      "scenarios": 32,
+      "raises": [
+        10,
+        30
+      ]
+    },
+    "seed": 10000,
+    "strategy": "risk:R=0.0:m=5:v1",
+    "opponent": "stable",
+    "hands": 50,
+    "final_balance_1": 426.0,
+    "optimized_decisions": 50,
+    "emergencies": 50,
+    "mean_seconds": 0.006702930820465553
+  }
+}

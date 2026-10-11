@@ -6,3 +6,9 @@ venv/
 .env
 .env.*
 !.env.example
+.pytest_cache/
+run/
+results/**/hands.csv
+results/demo*/
+
+.ruff_cache/

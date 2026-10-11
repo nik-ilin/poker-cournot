@@ -1,0 +1,20 @@
+{
+  "config": {
+    "capital": 455,
+    "hands": 50,
+    "alpha": 0.9,
+    "scenarios": 32,
+    "raises": [
+      10,
+      30
+    ]
+  },
+  "n_per_cell": 200,
+  "cells": 15,
+  "seed_start": 10000,
+  "seed_end": 10199,
+  "pilot_seeds": "100..102",
+  "parameter_selection": "predefined; no outcome-based tuning",
+  "seconds": 815.1891649160025,
+  "version": "v1"
+}
