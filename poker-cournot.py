@@ -1663,3 +1663,22 @@ def mostrar_ficha_modelo(estado, capacidades):
 
 
 mostrar_ficha_modelo(estado_modelo, capacidades_c)
+from optimizacion_cournot_poker import *
+
+graficar_br(
+    mu1_c,
+    mu2_c,
+    R1_c,
+    R2_c,
+    capacidades_c[0],
+    capacidades_c[1]
+)
+
+imprimir_resultados(
+    mu1_c,
+    mu2_c,
+    R1_c,
+    R2_c,
+    capacidades_c[0],
+    capacidades_c[1]
+)
