@@ -59,5 +59,13 @@
   "common_random_scenarios_across_actions": true,
   "nested_planning_samples_per_seed": true,
   "reference_interpretation": "S=512 solo es referencia de mayor tamaño, no valor verdadero",
-  "rule": "No se modifican parámetros según los resultados de evaluación."
+  "rule": "No se modifican parámetros según los resultados de evaluación.",
+  "statistics_correction": {
+    "source": "stability_runs.json from original experiment; no scenarios regenerated",
+    "source_sha256_before_correction": "d720bdab4cfa19dca1304dfdcc34a23305c44c00cd0e8b8dbbdbd78f79d8fb36",
+    "method": "mean of within-observation sample SD across distinct planner seeds, by action and S",
+    "missing": "fewer than two seeds: not estimable; excluded from average, counts reported",
+    "cvar_evaluation_uncertainty": "no standard error provided",
+    "figures": "stability.png unchanged: only action/feasibility changes and original timings"
+  }
 }

@@ -1,4 +1,4 @@
-observation,planner_seed,S,selected_action,independent_mean,independent_cvar,independent_feasible,mean_standard_error,cvar_standard_error_approx,feasible_action_benchmark_mean,mean_regret,evaluation_scenarios,tail_scenario_mass_count
-obs01,planner-v1:760000,32,raise:10,0.34375,10.0,True,0.3934542150781271,0.0,0.34375,0.0,256,25.599999999999994
-obs01,planner-v1:760000,128,raise:10,0.34375,10.0,True,0.3934542150781271,0.0,0.34375,0.0,256,25.599999999999994
-obs01,planner-v1:760000,512,raise:10,0.34375,10.0,True,0.3934542150781271,0.0,0.34375,0.0,256,25.599999999999994
+observation,planner_seed,S,selected_action,independent_mean,independent_cvar,independent_feasible,mean_standard_error,feasible_action_benchmark_mean,mean_regret,evaluation_scenarios,tail_scenario_mass_count
+obs01,planner-v1:760000,32,raise:10,0.34375,10.0,True,0.3934542150781271,0.34375,0.0,256,25.599999999999994
+obs01,planner-v1:760000,128,raise:10,0.34375,10.0,True,0.3934542150781271,0.34375,0.0,256,25.599999999999994
+obs01,planner-v1:760000,512,raise:10,0.34375,10.0,True,0.3934542150781271,0.34375,0.0,256,25.599999999999994

@@ -158,9 +158,14 @@ comparten los mismos escenarios. Política `risk`, `R=10`, `alpha=.90`,
 continuación rival `stable` y reglas constantes. Antes de comparar, las
 acciones elegidas se vuelven a evaluar con 2048 escenarios comunes e
 independientes de planificación por observación. A alpha .90 la cola equivale
-a 204.8 escenarios; se informa error estándar de la media y aproximación del
-error estándar de la media de cola, que no sustituye intervalos robustos para
-CVaR.
+a 204.8 escenarios; se informa error estándar del beneficio medio, pero no
+error estándar del CVaR muestral. La variabilidad Monte Carlo de planificación
+se calcula entre semillas dentro de cada (observación, acción, S), por separado
+para beneficio y CVaR. Se promedian esas desviaciones por acción y S con igual
+peso por observación estimable, indicando los recuentos incluidos y excluidos.
+Con menos de dos semillas la desviación es no estimable (null en JSON, celda
+vacía en CSV); cero se reserva para valores constantes. Estas desviaciones
+entre semillas no son errores estándar del CVaR de evaluación independiente.
 
 `S=512` es solo referencia de mayor tamaño. Frecuencia de cambio, factibilidad,
 emergencias, dispersión de estimaciones y tiempo dependen de estos estados,

@@ -57,24 +57,6 @@ def _mean_se(values):
     return statistics.stdev(values) / math.sqrt(len(values)) if len(values) > 1 else 0.0
 
 
-def _cvar_tail_se(losses, alpha):
-    """Error estándar de la media de cola, aproximación por masa fraccionaria."""
-    mass = 1.0 - alpha
-    remaining = mass
-    tail = []
-    for loss in sorted(losses, reverse=True):
-        used = min(1.0 / len(losses), remaining)
-        if used > 0:
-            tail.append((loss, used / mass))
-            remaining -= used
-        if remaining <= 1e-15:
-            break
-    center = sum(x * w for x, w in tail)
-    variance = sum(w * (x - center) ** 2 for x, w in tail)
-    effective_n = mass * len(losses)
-    return math.sqrt(variance / effective_n) if effective_n > 1 else 0.0
-
-
 def _observation(seed, capital, small, actor_mode):
     cfg = Config(capital=capital, hands=1, alpha=ALPHA, scenarios=32, raises=RAISES)
     holes, _ = deal(seed, 1)
@@ -340,7 +322,7 @@ def _summarize_stability(records):
             changed_feas += set(row["feasible_actions"]) != set(baseline["feasible_actions"])
             emergencies += row["emergency"]
             for action, values in row["estimates"].items():
-                grouped.setdefault(action, []).append(values)
+                grouped.setdefault((row["observation"], action), {})[row["planner_seed"]] = values
         summaries.append(
             {
                 "S": size,
@@ -352,18 +334,24 @@ def _summarize_stability(records):
                 "median_decision_seconds": statistics.median(r["seconds"] for r in selected),
             }
         )
-        for action, values in sorted(grouped.items()):
-            means = [v["mean"] for v in values]
-            risks = [v["cvar"] for v in values]
+        by_action = {}
+        for (observation, action), seeds in sorted(grouped.items()):
+            values = list(seeds.values())
+            def sd(key):
+                return statistics.stdev(v[key] for v in values) if len(values) >= 2 else None
+            by_action.setdefault(action, []).append((sd("mean"), sd("cvar")))
+        for action, deviations in sorted(by_action.items()):
+            estimable = [pair for pair in deviations if pair[0] is not None]
             estimate_rows.append(
                 {
                     "S": size,
                     "action": action,
-                    "n_observation_seed": len(values),
-                    "mean_estimate_average": statistics.mean(means),
-                    "mean_estimate_sd": statistics.stdev(means) if len(means) > 1 else 0,
-                    "cvar_estimate_average": statistics.mean(risks),
-                    "cvar_estimate_sd": statistics.stdev(risks) if len(risks) > 1 else 0,
+                    "n_observations": len(deviations),
+                    "n_observations_estimable": len(estimable),
+                    "n_observations_not_estimable": len(deviations) - len(estimable),
+                    "mean_within_observation_sd": statistics.mean(p[0] for p in estimable) if estimable else None,
+                    "cvar_within_observation_sd": statistics.mean(p[1] for p in estimable) if estimable else None,
+                    "status": "estimable" if len(estimable) == len(deviations) else "partial" if estimable else "no estimable",
                 }
             )
     return summaries, estimate_rows
@@ -422,9 +410,6 @@ def run_stability(out, observations_n=8, planner_seeds_n=5, evaluation_scenarios
                         "eval_cvar": eval_chosen["cvar"],
                         "eval_feasible": eval_chosen["cvar"] <= RISK_LIMIT + 1e-9,
                         "eval_mean_standard_error": _mean_se([ -x for x in eval_chosen["losses"] ]),
-                        "eval_cvar_standard_error_approx": _cvar_tail_se(
-                            eval_chosen["losses"], ALPHA
-                        ),
                         "eval_cvar_tail_observations": evaluation_scenarios * (1 - ALPHA),
                         "eval_mean_regret_vs_feasible_action": (benchmark["mean"] - eval_chosen["mean"]) if benchmark else None,
                         "seconds": seconds,
@@ -441,7 +426,6 @@ def run_stability(out, observations_n=8, planner_seeds_n=5, evaluation_scenarios
                         "independent_cvar": eval_chosen["cvar"],
                         "independent_feasible": eval_chosen["cvar"] <= RISK_LIMIT + 1e-9,
                         "mean_standard_error": _mean_se([-x for x in eval_chosen["losses"]]),
-                        "cvar_standard_error_approx": _cvar_tail_se(eval_chosen["losses"], ALPHA),
                         "feasible_action_benchmark_mean": benchmark["mean"] if benchmark else None,
                         "mean_regret": (benchmark["mean"] - eval_chosen["mean"]) if benchmark else None,
                         "evaluation_scenarios": evaluation_scenarios,
@@ -472,7 +456,6 @@ def run_stability(out, observations_n=8, planner_seeds_n=5, evaluation_scenarios
                 "average_mean_mc_se": statistics.mean(r["mean_standard_error"] for r in group),
                 "independent_cvar_average": statistics.mean(risks),
                 "independent_cvar_sd_across_fixtures": statistics.stdev(risks) if len(risks) > 1 else 0,
-                "average_cvar_mc_se_approx": statistics.mean(r["cvar_standard_error_approx"] for r in group),
                 "empirical_risk_limit_violations": sum(not r["independent_feasible"] for r in group),
                 "mean_regret_vs_feasible_sample_benchmark": statistics.mean(regrets) if regrets else None,
             }

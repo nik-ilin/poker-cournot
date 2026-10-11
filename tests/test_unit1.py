@@ -155,3 +155,35 @@ def test_small_stability_experiment_repeats_decisions(tmp_path):
         for row in rows:
             row.pop("seconds")
     assert a == b
+
+
+@pytest.mark.parametrize(
+    "values,expected_mean,expected_cvar,status",
+    [
+        ([(1, 2), (1, 2)], 0, 0, "estimable"),
+        ([(1, 2), (3, 6), (5, 10)], 2, 4, "estimable"),
+        ([(1, 2)], None, None, "no estimable"),
+    ],
+)
+def test_stability_variability_is_within_observation(values, expected_mean, expected_cvar, status):
+    from poker.academic import _summarize_stability
+
+    records = []
+    for size in (32, 128, 512):
+        for obs, offset in (("a", 0), ("b", 100)):
+            for seed, (mean, risk) in enumerate(values):
+                records.append(dict(
+                    S=size, observation=obs, planner_seed=seed, action="fold",
+                    feasible_actions=["fold"], emergency=False, seconds=0,
+                    estimates={"fold": {"mean": mean + offset, "cvar": risk + offset}},
+                ))
+    _, estimates = _summarize_stability(records)
+    for row in estimates:
+        assert row["n_observations"] == 2
+        assert row["status"] == status
+        assert row["n_observations_estimable"] == (2 if len(values) > 1 else 0)
+        for key, expected in (("mean_within_observation_sd", expected_mean), ("cvar_within_observation_sd", expected_cvar)):
+            if expected is None:
+                assert row[key] is None
+            else:
+                assert row[key] == pytest.approx(expected)

@@ -151,8 +151,8 @@ independientes de planificación (204.8 observaciones equivalentes en la cola al
 En esta batería todos los picks resultaron factibles en la muestra independiente.
 Los cambios de acción bajaron al aumentar S, y el coste creció aproximadamente
 con el tamaño muestral. El error estándar de Monte Carlo medio del beneficio por
-decisión fue 0.106, 0.130 y 0.145 fichas para S=32, 128 y 512; la aproximación de
-error estándar de CVaR fue cero en estas colas discretas de pagos constantes.
+decisión fue 0.106, 0.130 y 0.145 fichas para S=32, 128 y 512. El CVaR es una
+estimación muestral; no se proporciona su error estándar.
 Las métricas de evaluación son descriptivas de estos 8
 estados prefijados y las 5 semillas; las tres filas comparten repartos de
 evaluación, así que no son 120 observaciones poblacionales independientes. S=512
@@ -166,3 +166,18 @@ Archivos para revisión: `cvar_examples.csv`, `cvar_kkt_residuals.csv`,
 `sensitivity_step.png`; `observations.json`, `stability_summary.csv`,
 `stability_estimates.csv`, `stability_external_summary.csv` y `stability.png`.
 Los manifiestos registran entorno, parámetros, semillas, cantidades y tiempos.
+
+Corrección estadística (2026-10-11): se recalcularon únicamente los resúmenes
+`stability_estimates.csv` de estudio y piloto desde sus `stability_runs.json`.
+Las desviaciones ahora son medias de desviaciones entre semillas dentro de cada
+estado y acción. Para `fold` son cero en los seis estados donde está disponible.
+Para `call` (ocho estados), la desviación media del beneficio es 1.2823, 0.6315 y
+0.2942 fichas; la del CVaR es 1.0894, 0.6114 y 0.5282 para S=32,128,512.
+El piloto con una semilla no permite estimar estas desviaciones.
+Se retiraron las columnas del supuesto error estándar de CVaR; no se estimó uno
+nuevo. Decisiones, CVaR muestrales y tiempos originales se conservan. No se
+repitieron experimentos. Los manifiestos conservan configuración original y
+hash del registro previo a la corrección. `stability.png` no usa las medidas
+corregidas: mantiene cambios de acción, factibilidad y tiempos originales.
+Reproducción de esta corrección desde los registros guardados:
+`PYTHONPATH=. .venv/bin/python scripts/refresh_unit1_statistics.py`.
